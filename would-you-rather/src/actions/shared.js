@@ -1,6 +1,6 @@
 import { getQuestions } from "./questions";
 import { getUsers } from "./users";
-import { getInitialData } from "../_DATA.js";
+import { getInitialData } from "../utils/_DATA";
 import { setAuthedUser } from "./authedUser";
 
 const AUTHED_USER = "johndoe";
