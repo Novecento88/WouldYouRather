@@ -2,8 +2,8 @@ let users = {
   sarahedo: {
     id: "sarahedo",
     name: "Sarah Edo",
-    // Icon made by https://www.flaticon.com/authors/icongeek26
-    avatarURL: "../../assets/sarah_edo.svg",
+    avatarURL:
+      "https://images.freeimages.com/images/large-previews/cd5/lady-avatar-1632969.jpg",
     answers: {
       "8xf0y6ziyjabvozdd253nd": "optionOne",
       "6ni6ok3ym7mf1p33lnez": "optionTwo",
@@ -15,8 +15,8 @@ let users = {
   tylermcginnis: {
     id: "tylermcginnis",
     name: "Tyler McGinnis",
-    // Icon made by https://www.flaticon.com/authors/vitaly-gorbachev
-    avatarURL: "../../assets/tyler_mcginnis.svg",
+    avatarURL:
+      "https://images.freeimages.com/images/large-previews/023/geek-avatar-1632962.jpg",
     answers: {
       vthrdm985a262al8qx3do: "optionOne",
       xj352vofupe1dqz9emx13r: "optionTwo",
@@ -26,8 +26,8 @@ let users = {
   johndoe: {
     id: "johndoe",
     name: "John Doe",
-    // Icon made by https://www.freepik.com from https://www.flaticon.com/
-    avatarURL: "../../assets/john_doe.svg",
+    avatarURL:
+      "https://images.freeimages.com/images/large-previews/7e8/man-avatar-1632965.jpg",
     answers: {
       xj352vofupe1dqz9emx13r: "optionOne",
       vthrdm985a262al8qx3do: "optionTwo",
