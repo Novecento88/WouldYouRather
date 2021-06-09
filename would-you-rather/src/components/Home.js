@@ -1,35 +1,70 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Grid, Box, Tabs, Tab } from "@material-ui/core";
 import Question from "./Question";
 
 class Home extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      selectedTab: "answered",
+    };
+  }
+
+  handleTabChange = (event, value) => {
+    this.setState({
+      selectedTab: value,
+    });
+  };
+
   render() {
-    console.log(this.props);
+    const questionIds = this.props.questionIds[this.state.selectedTab];
+
     return (
       <div>
-        <h3>Polls</h3>
-        <div>
-          {this.props.questionsIds.map((id) => (
-            <li key={id}>
-              <Question id={id} />
-            </li>
-          ))}
-        </div>
+        <Box border={1} padding={2} maxWidth={650} margin="auto">
+          <Tabs
+            value={this.state.selectedTab}
+            onChange={this.handleTabChange}
+            aria-label="navigation tabs"
+            centered
+          >
+            <Tab label="ANSWERED" value={"answered"} />
+            <Tab label="UNANSWERED" value={"unanswered"} />
+          </Tabs>
+          <Grid container direction="column" spacing={3}>
+            {questionIds.map((id) => (
+              <Grid item key={id}>
+                <Question id={id} />
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
       </div>
     );
   }
 }
 
-function mapStateToProps({ questions }) {
+function mapStateToProps({ questions, authedUser }) {
+  const answered = Object.keys(questions).filter((key) => {
+    const question = questions[key];
+    const votes = question.optionOne.votes.concat(question.optionTwo.votes);
+    return votes.includes(authedUser);
+  });
+
+  const unanswered = Object.keys(questions).filter((key) => {
+    const question = questions[key];
+    const votes = question.optionOne.votes.concat(question.optionTwo.votes);
+    return !votes.includes(authedUser);
+  });
+
   return {
-    questionsIds: Object.keys(questions).sort(
-      (a, b) => questions[b].timestamp - questions[a].timestamp
-    ),
+    questionIds: {
+      answered,
+      unanswered,
+    },
   };
 }
 
 export default connect(mapStateToProps)(Home);
-
-// Might be useful later
-// const votes = question.optionOne.votes.concat(question.optionTwo.votes);
-// const answered = `${votes.includes(authedUser)}`;

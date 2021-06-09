@@ -28,6 +28,7 @@ class Question extends Component {
 
 function mapStateToProps({ users, questions }, { id }) {
   const question = questions[id];
+
   if (question === null) {
     console.log("NULL!");
     return null;

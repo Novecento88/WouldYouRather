@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import { handleInitialData } from "../actions/shared";
 import { AppBar, Tabs, Tab } from "@material-ui/core";
 import Home from "./Home";
-
 class App extends Component {
   constructor(props) {
     super(props);
