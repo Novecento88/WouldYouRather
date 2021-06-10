@@ -22,17 +22,21 @@ class Question extends Component {
 
     return (
       <Box border={1} padding={2} maxWidth={580} margin="auto" mt={4}>
-        <Box flexDirection="row">
+        <Box display="flex" flexDirection="row">
           <Avatar
+            display="flex"
+            alignSelf="flex-start"
+            style={{ height: "60px", width: "60px" }}
+            width={42}
             src={userAvatar}
             alt={`Avatar representing ${question.author}`}
           />
-          <div>
+          <Box display="flex" flexDirection="column" mb={2} ml={6} width="100%">
             <h2>Would you rather</h2>
             <div>{`...${question.optionOne.text}...`}</div>
-          </div>
+          </Box>
         </Box>
-        <Button fullWidth onClick={(event) => this.handleGoToQuestionPage(event, question.id)}>View Poll</Button>
+        <Button variant="contained" color="primary" mt={2} fullWidth onClick={(event) => this.handleGoToQuestionPage(event, question.id)}>View Poll</Button>
       </Box>
     );
   }
