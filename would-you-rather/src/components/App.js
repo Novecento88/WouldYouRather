@@ -1,15 +1,17 @@
 import React, { Component } from "react";
+import { Route, withRouter } from "react-router-dom";
 import "./App.css";
 import { connect } from "react-redux";
 import { handleInitialData } from "../actions/shared";
 import { AppBar, Tabs, Tab } from "@material-ui/core";
 import Home from "./Home";
+import NewQuestion from "./NewQuestion";
 class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      selectedTab: 0,
+      selectedTab: "/",
     };
   }
 
@@ -18,6 +20,8 @@ class App extends Component {
   }
 
   handleTabChange = (event, value) => {
+    this.props.history.push(value);
+
     this.setState({
       selectedTab: value,
     });
@@ -33,14 +37,17 @@ class App extends Component {
             aria-label="navigation tabs"
             centered
           >
-            <Tab label="HOME" />
-            <Tab label="NEW QUESTION" />
-            <Tab label="LEADER BOARD" />
-            <Tab label="HELLO, USER" />
-            <Tab label="LOGOUT" />
+            <Tab label="HOME" value="/" />
+            <Tab label="NEW QUESTION" value="/new-question" />
+            <Tab label="LEADER BOARD" value="/leader-board" />
+            <Tab label="HELLO, USER" value="/user-profile" />
+            <Tab label="LOGOUT" value="/logout" />
           </Tabs>
         </AppBar>
-        <div>{this.props.loading === true ? null : <Home />}</div>
+        <div>
+          <Route path="/" exact component={Home} />
+          <Route path="/new-question" component={NewQuestion} />
+        </div>
       </div>
     );
   }
@@ -52,4 +59,9 @@ function mapStateToProps({ authedUser }) {
   };
 }
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps)(withRouter(App));
+
+// Useful to check if user is authenticated
+{
+  /* {<div>{this.props.loading === true ? null : <Home />}</div>} */
+}
