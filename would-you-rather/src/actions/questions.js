@@ -30,11 +30,14 @@ export function handleAddQuestion(optionOne, optionTwo) {
     const { authedUser } = getState()
 
     _saveQuestion({
-      optionOne,
-      optionTwo,
+      optionOneText: optionOne,
+      optionTwoText: optionTwo,
       author: authedUser,
     }).then((question) => {
+      console.log("ADD QUESTION SUCCESS: ", question)
       dispatch(addQuestion(question))
+    }).catch((error) => {
+      console.log("ADD QUESTION ERROR: ", error)
     })
   }
 }

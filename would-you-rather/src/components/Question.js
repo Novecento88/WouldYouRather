@@ -25,7 +25,7 @@ class Question extends Component {
         <Box display="flex" flexDirection="row">
           <Avatar
             display="flex"
-            alignSelf="flex-start"
+            alignself="flex-start"
             style={{ height: "60px", width: "60px" }}
             width={42}
             src={userAvatar}

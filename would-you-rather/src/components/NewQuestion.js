@@ -13,8 +13,6 @@ class NewQuestion extends Component {
     const textFieldID = event.target.id
     const value = event.target.value
 
-    console.log("TARGET: ", event.target.id)
-
     switch (textFieldID) {
       case "option-one-text-field":
         this.setState(() => ({
