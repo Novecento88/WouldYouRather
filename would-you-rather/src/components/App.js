@@ -6,6 +6,9 @@ import { handleInitialData } from "../actions/shared";
 import { AppBar, Tabs, Tab } from "@material-ui/core";
 import Home from "./Home";
 import NewQuestion from "./NewQuestion";
+import QuestionPage from "./QuestionPage"
+
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -47,6 +50,7 @@ class App extends Component {
         <div>
           <Route path="/" exact component={Home} />
           <Route path="/new-question" component={NewQuestion} />
+          <Route path="/question/:questionID" component={QuestionPage} />
         </div>
       </div>
     );
@@ -59,7 +63,7 @@ function mapStateToProps({ authedUser }) {
   };
 }
 
-export default connect(mapStateToProps)(withRouter(App));
+export default withRouter(connect(mapStateToProps)(App));
 
 // Useful to check if user is authenticated
 {

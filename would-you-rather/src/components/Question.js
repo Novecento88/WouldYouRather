@@ -1,8 +1,18 @@
 import React, { Component } from "react";
-import "./Question.css";
 import { connect } from "react-redux";
+import { Button } from "@material-ui/core"
+import { withRouter } from "react-router-dom";
+import { Box, Avatar } from "@material-ui/core"
 
 class Question extends Component {
+
+
+  handleGoToQuestionPage = (event, questionID) => {
+    event.preventDefault()
+
+    this.props.history.push(`/question/${questionID}`)
+  }
+
   render() {
     const { question, userAvatar } = this.props;
 
@@ -11,17 +21,19 @@ class Question extends Component {
     }
 
     return (
-      <div className="question">
-        <img
-          className="avatar"
-          src={userAvatar}
-          alt={`Avatar representing ${question.author}`}
-        />
-        <div className="question-info">
-          <span>Would you rather</span>
-          <div>{`...${question.optionOne.text}...`}</div>
-        </div>
-      </div>
+      <Box border={1} padding={2} maxWidth={580} margin="auto" mt={4}>
+        <Box flexDirection="row">
+          <Avatar
+            src={userAvatar}
+            alt={`Avatar representing ${question.author}`}
+          />
+          <div>
+            <h2>Would you rather</h2>
+            <div>{`...${question.optionOne.text}...`}</div>
+          </div>
+        </Box>
+        <Button fullWidth onClick={(event) => this.handleGoToQuestionPage(event, question.id)}>View Poll</Button>
+      </Box>
     );
   }
 }
@@ -41,4 +53,4 @@ function mapStateToProps({ users, questions }, { id }) {
   };
 }
 
-export default connect(mapStateToProps)(Question);
+export default withRouter(connect(mapStateToProps)(Question));

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Grid, Box, Tabs, Tab } from "@material-ui/core";
 import Question from "./Question";
+import { withRouter } from "react-router-dom";
 
 class Home extends Component {
   constructor(props) {
@@ -23,7 +24,7 @@ class Home extends Component {
 
     return (
       <div>
-        <Box border={1} padding={2} maxWidth={650} margin="auto">
+        <Box border={1} padding={2} maxWidth={650} margin="auto" mt={4}>
           <Tabs
             value={this.state.selectedTab}
             onChange={this.handleTabChange}
@@ -67,4 +68,4 @@ function mapStateToProps({ questions, authedUser }) {
   };
 }
 
-export default connect(mapStateToProps)(Home);
+export default withRouter(connect(mapStateToProps)(Home));
