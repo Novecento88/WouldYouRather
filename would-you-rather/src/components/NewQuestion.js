@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Box, TextField, Button } from "@material-ui/core";
 import { handleAddQuestion } from "../actions/questions";
+import { withRouter } from "react-router-dom";
 
 class NewQuestion extends Component {
   state = {
@@ -43,6 +44,8 @@ class NewQuestion extends Component {
       optionOne: "",
       optionTwo: "",
     }));
+
+    this.props.history.push("/");
   };
 
   render() {
@@ -60,7 +63,6 @@ class NewQuestion extends Component {
                 value={this.state.optionOne}
                 variant="outlined"
                 onChange={this.handleChange}
-                multiline
                 fullWidth
               />
             </Box>
@@ -71,7 +73,6 @@ class NewQuestion extends Component {
                 value={this.state.optionTwo}
                 variant="outlined"
                 onChange={this.handleChange}
-                multiline
                 fullWidth
               />
             </Box>
@@ -85,4 +86,4 @@ class NewQuestion extends Component {
   }
 }
 
-export default connect()(NewQuestion);
+export default withRouter(connect()(NewQuestion));

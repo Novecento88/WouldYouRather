@@ -8,32 +8,43 @@ import {
   FormControlLabel,
   Button,
 } from "@material-ui/core";
+import { withRouter } from "react-router-dom";
+import { handleAddAnswer } from "../actions/questions";
 
 class QuestionPage extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      vote: null,
+      answer: null,
     };
   }
+
   handleOptionChange = (event) => {
     console.log("SELECTED OPTION: ", event.target.value);
 
-    this.setState(() => {
-        vote: 
-    })
+    this.setState(() => ({
+      answer: event.target.value,
+    }));
   };
 
   handleSubmit = (event) => {
     event.preventDefault();
-    console.log("SUBMIT VALUE: ", event.target.value);
 
-    const { vote } = this.state;
+    const { answer } = this.state;
+    const { question } = this.props;
+
+    if (answer === null) {
+      return;
+    }
+
+    const { dispatch } = this.props;
+    dispatch(handleAddAnswer(question.id, answer));
+
+    this.props.history.push("/");
   };
 
   render() {
-    console.log("PROPS: ", this.props);
     const { question } = this.props;
 
     return (
@@ -47,31 +58,33 @@ class QuestionPage extends Component {
         mt={4}
       >
         <h3>Would you rather...</h3>
-        <FormControl component="fieldset" onSubmit={this.handleSubmit}>
-          <RadioGroup name="options" onChange={this.handleOptionChange}>
-            <FormControlLabel
-              value="optionOne"
-              control={<Radio />}
-              label={`...${question.optionOne.text}`}
-            />
-            <FormControlLabel
-              value="optionTwo"
-              control={<Radio />}
-              label={`...${question.optionTwo.text}`}
-            />
-          </RadioGroup>
-          <Box py={2}>
-            <Button
-              variant="contained"
-              type="submit"
-              color="primary"
-              fullWidth
-              py={2}
-            >
-              Submit
-            </Button>
-          </Box>
-        </FormControl>
+        <form noValidate autoComplete="off" onSubmit={this.handleSubmit}>
+          <FormControl component="fieldset">
+            <RadioGroup name="options" onChange={this.handleOptionChange}>
+              <FormControlLabel
+                value="optionOne"
+                control={<Radio />}
+                label={`...${question.optionOne.text}`}
+              />
+              <FormControlLabel
+                value="optionTwo"
+                control={<Radio />}
+                label={`...${question.optionTwo.text}`}
+              />
+            </RadioGroup>
+            <Box py={2}>
+              <Button
+                variant="contained"
+                type="submit"
+                color="primary"
+                fullWidth
+                py={2}
+              >
+                Submit
+              </Button>
+            </Box>
+          </FormControl>
+        </form>
       </Box>
     );
   }
@@ -79,7 +92,6 @@ class QuestionPage extends Component {
 
 function mapStateToProps({ users, questions, authedUser }, props) {
   const { questionID } = props.match.params;
-  console.log("ID: ", questionID);
   const question = questions[questionID];
 
   return {
@@ -87,4 +99,4 @@ function mapStateToProps({ users, questions, authedUser }, props) {
   };
 }
 
-export default connect(mapStateToProps)(QuestionPage);
+export default withRouter(connect(mapStateToProps)(QuestionPage));
