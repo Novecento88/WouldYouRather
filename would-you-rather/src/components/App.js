@@ -6,8 +6,7 @@ import { handleInitialData } from "../actions/shared";
 import { AppBar, Tabs, Tab } from "@material-ui/core";
 import Home from "./Home";
 import NewQuestion from "./NewQuestion";
-import QuestionPage from "./QuestionPage"
-
+import QuestionPage from "./QuestionPage";
 
 class App extends Component {
   constructor(props) {
@@ -35,7 +34,7 @@ class App extends Component {
       <div>
         <AppBar position="static">
           <Tabs
-            value={this.state.selectedTab}
+            value={this.props.location.pathname}
             onChange={this.handleTabChange}
             aria-label="navigation tabs"
             centered
