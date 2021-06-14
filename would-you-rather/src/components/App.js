@@ -31,6 +31,10 @@ class App extends Component {
   };
 
   render() {
+    console.log("STATE: ", this.state);
+    const authedUserName = this.props.authedUserName
+      ? this.props.authedUserName
+      : "USER";
     return (
       <div>
         <AppBar position="static">
@@ -43,7 +47,11 @@ class App extends Component {
             <Tab label="HOME" value="/" />
             <Tab label="NEW QUESTION" value="/new-question" />
             <Tab label="LEADER BOARD" value="/leader-board" />
-            <Tab label="HELLO, USER" value="/user-profile" />
+            <Tab
+              label={`HELLO, ${authedUserName}`}
+              value="/user-profile"
+              disabled="true"
+            />
             <Tab label="LOGOUT" value="/logout" />
           </Tabs>
         </AppBar>
@@ -58,8 +66,13 @@ class App extends Component {
   }
 }
 
-function mapStateToProps({ authedUser }) {
+function mapStateToProps({ users, authedUser }) {
+  console.log("AUTHED_USER: ", authedUser);
+  console.log("USERS: ", users);
+  const authedUserName = users[authedUser]?.name;
+  console.log("AUTHED_USER_NAME: ", authedUserName);
   return {
+    authedUserName: authedUserName,
     loading: authedUser === null,
   };
 }
