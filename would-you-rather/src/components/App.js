@@ -7,6 +7,7 @@ import { AppBar, Tabs, Tab } from "@material-ui/core";
 import Home from "./Home";
 import NewQuestion from "./NewQuestion";
 import QuestionPage from "./QuestionPage";
+import LeaderBoard from "./LeaderBoard";
 
 class App extends Component {
   constructor(props) {
@@ -50,6 +51,7 @@ class App extends Component {
           <Route path="/" exact component={Home} />
           <Route path="/new-question" component={NewQuestion} />
           <Route path="/question/:questionID" component={QuestionPage} />
+          <Route path="/leader-board" component={LeaderBoard} />
         </div>
       </div>
     );
