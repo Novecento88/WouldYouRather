@@ -9,7 +9,7 @@ class Home extends Component {
     super(props);
 
     this.state = {
-      selectedTab: "answered",
+      selectedTab: "unanswered",
     };
   }
 
@@ -31,8 +31,8 @@ class Home extends Component {
             aria-label="navigation tabs"
             centered
           >
-            <Tab label="ANSWERED" value={"answered"} />
             <Tab label="UNANSWERED" value={"unanswered"} />
+            <Tab label="ANSWERED" value={"answered"} />
           </Tabs>
           <Grid container direction="column" spacing={3}>
             {questionIds.map((id) => (
