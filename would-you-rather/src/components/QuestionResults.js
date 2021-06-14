@@ -3,19 +3,6 @@ import { connect } from "react-redux";
 import { Box, Avatar, Typography, LinearProgress } from "@material-ui/core";
 
 function QuestionResults(props) {
-  const { question } = props;
-  const optionOneVotesAmount = question.optionOne.votes.length;
-  const optionTwoVotesAmount = question.optionTwo.votes.length;
-  const totalAmountOfVotes = optionOneVotesAmount + optionTwoVotesAmount;
-  const optionOnePercentageValue =
-    (optionOneVotesAmount / totalAmountOfVotes) * 100;
-  const optionTwoPercentageValue =
-    (optionTwoVotesAmount / totalAmountOfVotes) * 100;
-
-  console.log("QUESTION: ", question);
-  console.log("OPTION ONE: ", optionOneVotesAmount);
-  console.log("OPTION TWO: ", optionTwoVotesAmount);
-
   return (
     <Box border={1} padding={2} maxWidth={580} mt={4} margin="auto">
       <Box display="flex" flexDirection="column">
@@ -54,7 +41,7 @@ function QuestionResults(props) {
             >
               <Typography component="span">
                 <Box fontWeight="fontWeightBold" fontSize={16} padding={2}>
-                  {`Would you rather ${question.optionOne.text}`}
+                  {`Would you rather ${props.question.optionOne.text}`}
                 </Box>
               </Typography>
               <Box
@@ -66,18 +53,18 @@ function QuestionResults(props) {
                 <Box width="100%" mr={1}>
                   <LinearProgress
                     variant="determinate"
-                    value={optionOnePercentageValue}
+                    value={props.optionOnePercentageValue}
                   />
                 </Box>
                 <Typography
                   component="span"
                   variant="body2"
                   color="textSecondary"
-                >{`${Math.round(optionOnePercentageValue)}%`}</Typography>
+                >{`${Math.round(props.optionOnePercentageValue)}%`}</Typography>
               </Box>
               <Typography component="span">
                 <Box fontWeight="fontWeightBold" fontSize={16} padding={2}>
-                  {`${question.optionOne.votes.length} out of ${totalAmountOfVotes} votes`}
+                  {`${props.question.optionOne.votes.length} out of ${props.totalAmountOfVotes} votes`}
                 </Box>
               </Typography>
             </Box>
@@ -90,7 +77,7 @@ function QuestionResults(props) {
             >
               <Typography component="span">
                 <Box fontWeight="fontWeightBold" fontSize={16} padding={2}>
-                  {`Would you rather ${question.optionTwo.text}`}
+                  {`Would you rather ${props.question.optionTwo.text}`}
                 </Box>
               </Typography>
               <Box
@@ -102,18 +89,18 @@ function QuestionResults(props) {
                 <Box width="100%" mr={1}>
                   <LinearProgress
                     variant="determinate"
-                    value={optionTwoPercentageValue}
+                    value={props.optionTwoPercentageValue}
                   />
                 </Box>
                 <Typography
                   component="span"
                   variant="body2"
                   color="textSecondary"
-                >{`${Math.round(optionTwoPercentageValue)}%`}</Typography>
+                >{`${Math.round(props.optionTwoPercentageValue)}%`}</Typography>
               </Box>
               <Typography component="span">
                 <Box fontWeight="fontWeightBold" fontSize={16} padding={2}>
-                  {`${question.optionTwo.votes.length} out of ${totalAmountOfVotes} votes`}
+                  {`${props.question.optionTwo.votes.length} out of ${props.totalAmountOfVotes} votes`}
                 </Box>
               </Typography>
             </Box>
@@ -132,6 +119,13 @@ function mapStateToProps({ users, questions }, props) {
     console.log("QUESTION RESULTS: QUESTION IS NULL!");
     return null;
   }
+  const optionOneVotesAmount = question.optionOne.votes.length;
+  const optionTwoVotesAmount = question.optionTwo.votes.length;
+  const totalAmountOfVotes = optionOneVotesAmount + optionTwoVotesAmount;
+  const optionOnePercentageValue =
+    (optionOneVotesAmount / totalAmountOfVotes) * 100;
+  const optionTwoPercentageValue =
+    (optionTwoVotesAmount / totalAmountOfVotes) * 100;
 
   const user = users[question.author];
   const userAvatar = `${users[question.author].avatarURL}`;
@@ -140,6 +134,11 @@ function mapStateToProps({ users, questions }, props) {
     question,
     user,
     userAvatar,
+    optionOneVotesAmount,
+    optionTwoVotesAmount,
+    totalAmountOfVotes,
+    optionOnePercentageValue,
+    optionTwoPercentageValue,
   };
 }
 
