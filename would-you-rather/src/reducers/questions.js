@@ -16,15 +16,14 @@ export default function users(state = {}, action) {
       };
     case ADD_ANSWER:
       const { authedUser, questionID, answer } = action;
-      console.log("ACTION ANSWER: ", action);
 
-      const { questions } = this.state;
-      const q = questions[questionID];
-      q[answer].push(authedUser);
+      const questions = state;
+      const updatedQuestion = questions[questionID];
+      updatedQuestion[answer].votes.push(authedUser);
 
       return {
         ...state,
-        [question.id]: q,
+        [updatedQuestion.id]: updatedQuestion,
       };
     default:
       return state;
