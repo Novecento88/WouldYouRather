@@ -10,9 +10,9 @@ class LeaderBoard extends Component {
     return (
       <Box maxWidth={650} margin="auto" mt={4}>
         <Grid container direction="column" spacing={3}>
-          {Object.keys(users).map((user) => (
-            <Grid item key={user.id}>
-              <User key={user.id} user={users[user]} />
+          {Object.keys(users).map((userID) => (
+            <Grid item key={userID}>
+              <User key={userID} user={users[userID]} />
             </Grid>
           ))}
         </Grid>

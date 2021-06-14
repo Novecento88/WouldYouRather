@@ -21,7 +21,7 @@ export default function User(props) {
         </Box>
         <Box display="flex" flexDirection="column" mb={2} mx={6} width="100%">
           <h2>{props.user.name}</h2>
-          <Typography>
+          <Typography component="span">
             <Box
               display="flex"
               flexDirection="row"
@@ -47,10 +47,10 @@ export default function User(props) {
           flexDirection="column"
           justifyContent="space-between"
         >
-          <Typography>
+          <Typography component="span">
             <Box fontWeight="fontWeightBold">SCORE</Box>
           </Typography>
-          <Typography>
+          <Typography component="span">
             <Box textAlign="center" fontSize={42}>
               {answeredQuestionsCount + createdQuestionsCount}
             </Box>
