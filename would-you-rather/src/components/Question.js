@@ -1,17 +1,19 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Button } from "@material-ui/core"
+import { Button } from "@material-ui/core";
 import { withRouter } from "react-router-dom";
-import { Box, Avatar } from "@material-ui/core"
+import { Box, Avatar } from "@material-ui/core";
 
 class Question extends Component {
-
-
   handleGoToQuestionPage = (event, questionID) => {
-    event.preventDefault()
+    event.preventDefault();
 
-    this.props.history.push(`/question/${questionID}`)
-  }
+    if (this.props.answered) {
+      this.props.history.push(`/question-results/${questionID}`);
+      return;
+    }
+    this.props.history.push(`/question/${questionID}`);
+  };
 
   render() {
     const { question, userAvatar } = this.props;
@@ -36,14 +38,24 @@ class Question extends Component {
             <div>{`...${question.optionOne.text}...`}</div>
           </Box>
         </Box>
-        <Button variant="contained" color="primary" mt={2} fullWidth onClick={(event) => this.handleGoToQuestionPage(event, question.id)}>View Poll</Button>
+        <Button
+          variant="contained"
+          color="primary"
+          mt={2}
+          fullWidth
+          onClick={(event) => this.handleGoToQuestionPage(event, question.id)}
+        >
+          View Poll
+        </Button>
       </Box>
     );
   }
 }
 
-function mapStateToProps({ users, questions }, { id }) {
+function mapStateToProps({ users, questions, authedUser }, { id }) {
   const question = questions[id];
+  const votes = question.optionOne.votes.concat(question.optionTwo.votes);
+  const answered = votes.includes(authedUser);
 
   if (question === null) {
     console.log("NULL!");
@@ -54,6 +66,7 @@ function mapStateToProps({ users, questions }, { id }) {
   return {
     question,
     userAvatar,
+    answered,
   };
 }
 

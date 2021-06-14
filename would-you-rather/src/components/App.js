@@ -8,6 +8,8 @@ import Home from "./Home";
 import NewQuestion from "./NewQuestion";
 import QuestionPage from "./QuestionPage";
 import LeaderBoard from "./LeaderBoard";
+import QuestionResults from "./QuestionResults";
+import { ROUTES } from "../utils/routes";
 
 class App extends Component {
   constructor(props) {
@@ -35,11 +37,15 @@ class App extends Component {
     const authedUserName = this.props.authedUserName
       ? this.props.authedUserName
       : "USER";
+
+    const tabValue = ROUTES.includes(this.props.location.pathname)
+      ? this.props.location.pathname
+      : "/";
     return (
       <div>
         <AppBar position="static">
           <Tabs
-            value={this.props.location.pathname}
+            value={tabValue}
             onChange={this.handleTabChange}
             aria-label="navigation tabs"
             centered
@@ -50,7 +56,7 @@ class App extends Component {
             <Tab
               label={`HELLO, ${authedUserName}`}
               value="/user-profile"
-              disabled="true"
+              disabled={true}
             />
             <Tab label="LOGOUT" value="/logout" />
           </Tabs>
@@ -59,6 +65,11 @@ class App extends Component {
           <Route path="/" exact component={Home} />
           <Route path="/new-question" component={NewQuestion} />
           <Route path="/question/:questionID" component={QuestionPage} />
+          <Route
+            path="/question-results/:questionID"
+            exact
+            component={QuestionResults}
+          />
           <Route path="/leader-board" component={LeaderBoard} />
         </div>
       </div>
@@ -67,10 +78,8 @@ class App extends Component {
 }
 
 function mapStateToProps({ users, authedUser }) {
-  console.log("AUTHED_USER: ", authedUser);
-  console.log("USERS: ", users);
   const authedUserName = users[authedUser]?.name;
-  console.log("AUTHED_USER_NAME: ", authedUserName);
+
   return {
     authedUserName: authedUserName,
     loading: authedUser === null,

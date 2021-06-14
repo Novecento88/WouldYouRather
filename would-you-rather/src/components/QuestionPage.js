@@ -41,7 +41,7 @@ class QuestionPage extends Component {
     const { dispatch } = this.props;
     dispatch(handleAddAnswer(question.id, answer));
 
-    this.props.history.push("/");
+    this.props.history.push(`/question-results/${question.id}`);
   };
 
   render() {
@@ -58,39 +58,46 @@ class QuestionPage extends Component {
         mt={4}
       >
         <h3>Would you rather...</h3>
-        <form noValidate autoComplete="off" onSubmit={this.handleSubmit}>
-          <FormControl component="fieldset">
-            <RadioGroup name="options" onChange={this.handleOptionChange}>
-              <FormControlLabel
-                value="optionOne"
-                control={<Radio />}
-                label={`...${question.optionOne.text}`}
-              />
-              <FormControlLabel
-                value="optionTwo"
-                control={<Radio />}
-                label={`...${question.optionTwo.text}`}
-              />
-            </RadioGroup>
-            <Box py={2}>
-              <Button
-                variant="contained"
-                type="submit"
-                color="primary"
-                fullWidth
-                py={2}
-              >
-                Submit
-              </Button>
-            </Box>
-          </FormControl>
+        <form
+          width="100%"
+          noValidate
+          autoComplete="off"
+          onSubmit={this.handleSubmit}
+        >
+          <Box display="flex" flexDirection="column" width="100%">
+            <FormControl component="fieldset">
+              <RadioGroup name="options" onChange={this.handleOptionChange}>
+                <FormControlLabel
+                  value="optionOne"
+                  control={<Radio />}
+                  label={`...${question.optionOne.text}`}
+                />
+                <FormControlLabel
+                  value="optionTwo"
+                  control={<Radio />}
+                  label={`...${question.optionTwo.text}`}
+                />
+              </RadioGroup>
+              <Box display="flex" py={2} width="100%">
+                <Button
+                  variant="contained"
+                  type="submit"
+                  color="primary"
+                  fullWidth
+                  py={2}
+                >
+                  Submit
+                </Button>
+              </Box>
+            </FormControl>
+          </Box>
         </form>
       </Box>
     );
   }
 }
 
-function mapStateToProps({ users, questions, authedUser }, props) {
+function mapStateToProps({ questions }, props) {
   const { questionID } = props.match.params;
   const question = questions[questionID];
 
