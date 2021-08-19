@@ -116,7 +116,6 @@ function mapStateToProps({ users, questions }, props) {
   const question = questions[questionID];
 
   if (question === null) {
-    console.log("QUESTION RESULTS: QUESTION IS NULL!");
     return null;
   }
   const optionOneVotesAmount = question.optionOne.votes.length;

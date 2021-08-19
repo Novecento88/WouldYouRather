@@ -3,7 +3,7 @@ import { Route, withRouter } from "react-router-dom";
 import "./App.css";
 import { connect } from "react-redux";
 import { handleInitialData } from "../actions/shared";
-import { AppBar, Tabs, Tab } from "@material-ui/core";
+import { AppBar, Tabs, Tab, Button, Box } from "@material-ui/core";
 import Home from "./Home";
 import NewQuestion from "./NewQuestion";
 import QuestionPage from "./QuestionPage";
@@ -33,6 +33,7 @@ class App extends Component {
   };
 
   render() {
+    console.log("PROPS: ", this.props)
     console.log("STATE: ", this.state);
     const authedUserName = this.props.authedUserName
       ? this.props.authedUserName
@@ -44,22 +45,24 @@ class App extends Component {
     return (
       <div>
         <AppBar position="static">
-          <Tabs
-            value={tabValue}
-            onChange={this.handleTabChange}
-            aria-label="navigation tabs"
-            centered
-          >
-            <Tab label="HOME" value="/" />
-            <Tab label="NEW QUESTION" value="/new-question" />
-            <Tab label="LEADER BOARD" value="/leader-board" />
-            <Tab
-              label={`HELLO, ${authedUserName}`}
-              value="/user-profile"
-              disabled={true}
-            />
-            <Tab label="LOGOUT" value="/logout" />
-          </Tabs>
+          <Box display="inline">
+            <Tabs
+              value={tabValue}
+              onChange={this.handleTabChange}
+              aria-label="navigation tabs"
+              centered
+            >
+              <Tab label="HOME" value="/" />
+              <Tab label="NEW QUESTION" value="/new-question" />
+              <Tab label="LEADER BOARD" value="/leader-board" />
+              <Tab
+                label={`HELLO, ${authedUserName}`}
+                value="/user-profile"
+                disabled={true}
+              />
+            </Tabs>
+            <Button label={"LOGOUT"} value="/logout" />
+          </Box>
         </AppBar>
         <div>
           <Route path="/" exact component={Home} />

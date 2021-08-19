@@ -11,14 +11,14 @@ export function getQuestions(questions) {
   };
 }
 
-function addQuestion(question) {
+export function addQuestion(question) {
   return {
     type: ADD_QUESTION,
     question,
   };
 }
 
-function addAnswer(authedUser, questionID, answer) {
+export function addAnswer(authedUser, questionID, answer) {
   return {
     type: ADD_ANSWER,
     authedUser,
@@ -37,7 +37,6 @@ export function handleAddQuestion(optionOne, optionTwo) {
       author: authedUser,
     })
       .then((question) => {
-        console.log("ADD QUESTION SUCCESS: ", question);
         dispatch(addQuestion(question));
       })
       .catch((error) => {

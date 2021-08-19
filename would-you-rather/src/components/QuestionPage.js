@@ -21,8 +21,6 @@ class QuestionPage extends Component {
   }
 
   handleOptionChange = (event) => {
-    console.log("SELECTED OPTION: ", event.target.value);
-
     this.setState(() => ({
       answer: event.target.value,
     }));

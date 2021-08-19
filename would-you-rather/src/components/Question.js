@@ -58,7 +58,6 @@ function mapStateToProps({ users, questions, authedUser }, { id }) {
   const answered = votes.includes(authedUser);
 
   if (question === null) {
-    console.log("NULL!");
     return null;
   }
   const userAvatar = `${users[question.author].avatarURL}`;
